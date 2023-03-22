@@ -6,8 +6,8 @@ import java.util.regex.Pattern;
 
 public class AbstractParameterRename {
 
-    // Definitions of abstract methods must contain both the keyword abstract and end with a semicolon.
-    public static final Pattern ABSTRACT_METHOD = Pattern.compile("(.*)\\(.+\\);");
+    // Definitions of methods must contain both a non-empty parameter list and end with a semicolon.
+    public static final Pattern METHOD_DECLARATION = Pattern.compile("(.*)\\(.+\\);");
 
     // Bear with me here.
     // We need the number from the SRG function, so we read the whole method declaration.
@@ -47,7 +47,7 @@ public class AbstractParameterRename {
     public static String fixAbstractParameters(String file) {
         // Filter for files that even contain an abstract method.
         //         if (line.endswith(";")):
-        file = sub(file, ABSTRACT_METHOD, outerMatch -> {
+        file = sub(file, METHOD_DECLARATION, outerMatch -> {
             String method = outerMatch.group(0);
             // Parse the method definition
             //             line = _REGEXP['abstract'].sub(abstract_match, line)
