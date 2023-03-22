@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 public class AbstractParameterRename {
 
     // Definitions of abstract methods must contain both the keyword abstract and end with a semicolon.
-    public static final Pattern ABSTRACT_METHOD = Pattern.compile("(?:abstract) (.*)\\(.+\\);");
+    public static final Pattern ABSTRACT_METHOD = Pattern.compile("(.*)\\(.+\\);");
 
     // Bear with me here.
     // We need the number from the SRG function, so we read the whole method declaration.
