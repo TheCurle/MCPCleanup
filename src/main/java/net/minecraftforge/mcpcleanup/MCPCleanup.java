@@ -34,6 +34,7 @@ public class MCPCleanup {
     private final ASFormatter formatter = new ASFormatter();
     private final GLConstantFixer oglFixer;
     private boolean filterFML = false;
+    private boolean fixParams = false;
 
     public static MCPCleanup create(File input, File output) {
         return new MCPCleanup(input, output);
@@ -71,6 +72,11 @@ public class MCPCleanup {
 
     public MCPCleanup filterFML() {
         this.filterFML = true;
+        return this;
+    }
+
+    public MCPCleanup fixParams() {
+        this.fixParams = true;
         return this;
     }
 
@@ -123,8 +129,10 @@ public class MCPCleanup {
         log("  various other cleanup");
         file = BasicCleanups.cleanup(file);
 
-        log(" fixing abstract parameter names");
-        file = AbstractParameterRename.fixAbstractParameters(file);
+        if (fixParams) {
+            log(" fixing abstract parameter names");
+            file = AbstractParameterRename.fixAbstractParameters(file);
+        }
 
         log("  fixing OGL constants");
         file = oglFixer.fixOGL(file);
