@@ -78,7 +78,7 @@ public class MCPCleanup {
         TimeZone.setDefault(TimeZone.getTimeZone("GMT")); //Fix Java stupidity that causes timestamps in zips to depend on user's timezone!
         if (output.exists() && !output.delete()) throw new IOException("Could not delete file: " + output);
         File parent = output.getParentFile();
-        if (!parent.exists() && !parent.mkdirs()) throw new IOException("Could not make prent folders: " + parent);
+        if (!parent.exists() && !parent.mkdirs()) throw new IOException("Could not make parent folders: " + parent);
 
         dirs.clear();
 
@@ -122,6 +122,9 @@ public class MCPCleanup {
 
         log("  various other cleanup");
         file = BasicCleanups.cleanup(file);
+
+        log(" fixing abstract parameter names");
+        file = AbstractParameterRename.fixAbstractParameters(file);
 
         log("  fixing OGL constants");
         file = oglFixer.fixOGL(file);
